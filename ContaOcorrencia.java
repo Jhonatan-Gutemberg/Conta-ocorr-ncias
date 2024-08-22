@@ -5,35 +5,42 @@ public class ContaOcorrencia {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int inicio = 0;
+       
         String entrada;
-        entrada = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            entrada = scanner.nextLine();
+            int inicio = 0;
+            
+            String[] valores = entrada.split(";");
+            int valorBuscado;
+            valorBuscado = scanner.nextInt();
+            scanner.nextLine();
 
-        String[] valores = entrada.split(";");
-        int x;
-        x = scanner.nextInt();
+            int[] arrayNumeros = montaArrayNumeros(valores);
+            int resultado = conta(arrayNumeros, valorBuscado, inicio);
+            System.out.println(resultado);
+            if (entrada.equals("FIM")) {
+                break;
+            }
 
-        int[] arrayNumeros = montaArrayNumeros(valores);
-        int resultado = conta(arrayNumeros, x, inicio);
-        System.out.println(resultado);
+        }
 
         scanner.close();
     }
 
     private static int[] montaArrayNumeros(String[] valores) {
-        int[] a = new int[valores.length];
-        for (int i = 0; i < a.length; i++) {
+        int[] arrayNumeros = new int[valores.length];
+        for (int i = 0; i < arrayNumeros.length; i++) {
 
             try {
-                a[i] = Integer.parseInt(valores[i].trim());
+                arrayNumeros[i] = Integer.parseInt(valores[i]);
             } catch (NumberFormatException e) {
-                System.out.println("Invalido");
-                a[i] = 0;
+                arrayNumeros[i] = 0;
 
             }
         }
 
-        return a;
+        return arrayNumeros;
     }
 
     private static int conta(int[] a, int valorPrpcurado, int inicio) {
